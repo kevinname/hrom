@@ -1,0 +1,20 @@
+FLASH1 0x0
+{
+    ROM 0x000000 0x80000; 
+    {
+        * (.nds32_init)
+        * (+RO-CODE)
+        * (+RO-DATA)
+    }    
+ 
+    RAM 0x10000000 0x8000 ; ram <= 32KB
+    {
+		LOADADDR NEXT __rw_lma_start
+        ADDR NEXT __rw_vma_start
+        *(+RW LMA_FORCE_ALIGN)
+        LOADADDR NEXT __rw_lma_end
+        ADDR NEXT __rw_vma_end
+        *(+ZI LMA_FORCE_ALIGN)
+        STACK = 0x10007ff8 ; 32KB
+   }	
+}
